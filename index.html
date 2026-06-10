@@ -1,0 +1,899 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="ML4Sustain 是连接机器学习、遥感与真实世界影响的开放社区，支持可持续发展目标"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="https://raw.githubusercontent.com/ML4Sustain/rs-paper-hub/main/asset/logo.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      href="https://raw.githubusercontent.com/ML4Sustain/rs-paper-hub/main/asset/logo.png"
+    />
+    <title>ML4Sustain - 连接机器学习、遥感与可持续发展目标</title>
+    <style>
+      :root {
+        --ink: #121417;
+        --muted: #5c6670;
+        --paper: #fbfcf8;
+        --line: #dfe6df;
+        --field: #eef4ec;
+        --forest: #124235;
+        --leaf: #1f8f6e;
+        --cobalt: #2458d6;
+        --amber: #e8a528;
+        --rose: #b31b1b;
+        --shadow: 0 18px 42px rgba(18, 66, 53, 0.14);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        color: var(--ink);
+        background: var(--paper);
+        font-family:
+          ui-sans-serif,
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+        line-height: 1.5;
+        overflow-x: hidden;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      img {
+        max-width: 100%;
+        display: block;
+      }
+
+      .hero {
+        min-height: 78vh;
+        color: #fff;
+        background:
+          linear-gradient(105deg, rgba(7, 21, 18, 0.88), rgba(7, 21, 18, 0.52) 48%, rgba(7, 21, 18, 0.18)),
+          url("https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=1800&q=80")
+            center / cover;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero::after {
+        content: "";
+        position: absolute;
+        inset: auto 0 0;
+        height: 32%;
+        background: linear-gradient(0deg, var(--paper), rgba(251, 252, 248, 0));
+        pointer-events: none;
+      }
+
+      .nav,
+      .hero-inner,
+      .section,
+      .footer-inner {
+        width: min(1120px, calc(100% - 40px));
+        margin: 0 auto;
+      }
+
+      .nav {
+        min-height: 72px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+        position: relative;
+        z-index: 2;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 800;
+        letter-spacing: 0;
+      }
+
+      .brand-mark {
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        object-fit: cover;
+        background: #dff7ec;
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        color: rgba(255, 255, 255, 0.82);
+        font-size: 14px;
+      }
+
+      .nav-links a:hover {
+        color: #fff;
+      }
+
+      .language-toggle {
+        display: inline-flex;
+        align-items: center;
+        gap: 2px;
+        padding: 3px;
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      .lang-button {
+        min-width: 34px;
+        min-height: 28px;
+        border: 0;
+        border-radius: 6px;
+        color: rgba(255, 255, 255, 0.72);
+        background: transparent;
+        font: inherit;
+        font-size: 12px;
+        font-weight: 800;
+        cursor: pointer;
+      }
+
+      .lang-button[aria-pressed="true"] {
+        color: #0d2d24;
+        background: #dff7ec;
+      }
+
+      .hero-inner {
+        position: relative;
+        z-index: 1;
+        padding: 92px 0 118px;
+      }
+
+      .eyebrow {
+        margin: 0 0 18px;
+        color: #b9ead6;
+        font-size: 13px;
+        font-weight: 800;
+        letter-spacing: 0.13em;
+        text-transform: uppercase;
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin-top: 0;
+      }
+
+      h1 {
+        width: min(820px, 100%);
+        margin-bottom: 20px;
+        font-size: clamp(42px, 6.4vw, 82px);
+        line-height: 1;
+        letter-spacing: 0;
+      }
+
+      .hero-copy {
+        width: min(690px, 100%);
+        margin-bottom: 30px;
+        color: rgba(255, 255, 255, 0.84);
+        font-size: clamp(18px, 2.1vw, 24px);
+      }
+
+      .actions,
+      .badge-row,
+      .project-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .button {
+        min-height: 44px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 9px;
+        border-radius: 8px;
+        padding: 0 16px;
+        border: 1px solid rgba(255, 255, 255, 0.28);
+        color: #fff;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        font-size: 14px;
+        font-weight: 750;
+        transition:
+          transform 180ms ease,
+          background 180ms ease,
+          border-color 180ms ease;
+      }
+
+      .button.primary {
+        border-color: #dff7ec;
+        color: #103a30;
+        background: #dff7ec;
+      }
+
+      .button:hover {
+        transform: translateY(-2px);
+        background: rgba(255, 255, 255, 0.18);
+        border-color: rgba(255, 255, 255, 0.48);
+      }
+
+      .button.primary:hover {
+        background: #fff;
+        border-color: #fff;
+      }
+
+      .button-logo {
+        width: 20px;
+        height: 20px;
+        display: inline-grid;
+        place-items: center;
+        flex: 0 0 auto;
+        border-radius: 6px;
+        font-size: 13px;
+        font-weight: 900;
+        line-height: 1;
+      }
+
+      .button-logo svg {
+        width: 18px;
+        height: 18px;
+        display: block;
+      }
+
+      .button-logo img {
+        width: 20px;
+        height: 20px;
+        display: block;
+        object-fit: contain;
+      }
+
+      .button-logo.github {
+        color: #181717;
+        background: #fff;
+      }
+
+      .button-logo.hf {
+        background: #ffd21e;
+      }
+
+      .button-logo.modelscope {
+        background: #624aff;
+      }
+
+      main {
+        position: relative;
+        z-index: 3;
+      }
+
+      .section {
+        padding: 82px 0;
+      }
+
+      .section-heading {
+        display: grid;
+        grid-template-columns: minmax(0, 0.88fr) minmax(260px, 0.42fr);
+        gap: 40px;
+        align-items: end;
+        margin-bottom: 34px;
+      }
+
+      h2 {
+        margin-bottom: 0;
+        font-size: clamp(32px, 4vw, 58px);
+        line-height: 1;
+        letter-spacing: 0;
+      }
+
+      .section-heading p {
+        margin-bottom: 0;
+        color: var(--muted);
+        font-size: 17px;
+      }
+
+      .project:hover {
+        border-color: rgba(31, 143, 110, 0.55);
+        box-shadow: var(--shadow);
+        transform: translateY(-3px);
+      }
+
+      .project-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .project {
+        padding: 10px 10px 18px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #fff;
+        overflow: hidden;
+        transition:
+          transform 180ms ease,
+          box-shadow 180ms ease,
+          border-color 180ms ease;
+      }
+
+      .project-media {
+        position: relative;
+        margin-bottom: 14px;
+        aspect-ratio: 1.55;
+        overflow: hidden;
+        border-radius: 6px;
+        background: var(--field);
+      }
+
+      .project-media img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: saturate(0.96) contrast(1.02);
+        transition: transform 220ms ease;
+      }
+
+      .project:hover .project-media img {
+        transform: scale(1.025);
+      }
+
+      .project-body {
+        padding: 0 6px;
+      }
+
+      .project-kicker {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 12px;
+        color: var(--muted);
+        font-size: 11px;
+        font-weight: 760;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+
+      .index {
+        color: var(--leaf);
+        font-feature-settings: "tnum";
+      }
+
+      h3 {
+        margin-bottom: 10px;
+        font-size: clamp(21px, 2.3vw, 28px);
+        line-height: 1.08;
+        letter-spacing: 0;
+      }
+
+      .project p {
+        min-height: 92px;
+        margin-bottom: 14px;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .tag {
+        display: inline-flex;
+        align-items: center;
+        min-height: 30px;
+        border-radius: 8px;
+        padding: 0 9px;
+        color: var(--forest);
+        background: var(--field);
+        font-size: 12px;
+        font-weight: 760;
+      }
+
+      @media (max-width: 1100px) {
+        .project-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .project p {
+          min-height: 64px;
+        }
+      }
+
+      .tag.github {
+        color: #24292f;
+        background: #eef0f2;
+      }
+
+      .tag.hf {
+        color: #73520a;
+        background: #fff2bd;
+      }
+
+      .tag.modelscope {
+        color: #312184;
+        background: #ece8ff;
+      }
+
+      .tag.paper {
+        color: #7b1212;
+        background: #ffe6e6;
+      }
+
+      .tag.website {
+        color: #123f85;
+        background: #e6efff;
+      }
+
+      .band {
+        background: var(--forest);
+        color: #fff;
+      }
+
+      .band .section {
+        display: grid;
+        grid-template-columns: 0.72fr 1fr;
+        gap: 56px;
+        align-items: center;
+      }
+
+      .band p {
+        color: rgba(255, 255, 255, 0.72);
+      }
+
+      .metrics {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .metric {
+        min-height: 118px;
+        padding: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.06);
+      }
+
+      .metric strong {
+        display: block;
+        margin-bottom: 8px;
+        font-size: clamp(28px, 4vw, 44px);
+        line-height: 1;
+      }
+
+      .metric span {
+        color: rgba(255, 255, 255, 0.72);
+        font-size: 14px;
+      }
+
+      footer {
+        border-top: 1px solid var(--line);
+        background: #fff;
+      }
+
+      .footer-inner {
+        min-height: 94px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .footer-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+      }
+
+      .footer-links a:hover {
+        color: var(--forest);
+      }
+
+      @media (max-width: 860px) {
+        .nav {
+          align-items: flex-start;
+          flex-direction: column;
+          padding: 18px 0 0;
+        }
+
+        .nav-links {
+          width: 100%;
+          flex-wrap: wrap;
+          overflow-x: visible;
+          padding-bottom: 4px;
+        }
+
+        .language-toggle {
+          margin-left: 0;
+        }
+
+        .hero-inner {
+          padding: 72px 0 98px;
+        }
+
+        h1 {
+          max-width: 11ch;
+          font-size: clamp(34px, 9.5vw, 44px);
+          line-height: 1.06;
+        }
+
+        .hero-copy {
+          width: min(100%, 29ch);
+          font-size: 18px;
+        }
+
+        .actions {
+          display: grid;
+          grid-template-columns: 1fr;
+          max-width: 260px;
+        }
+
+        .actions .button {
+          width: 100%;
+        }
+
+        h2 {
+          max-width: 13ch;
+          font-size: clamp(30px, 9vw, 42px);
+          line-height: 1.04;
+        }
+
+        .section-heading p {
+          max-width: 31ch;
+        }
+
+        .section-heading,
+        .band .section {
+          grid-template-columns: 1fr;
+          gap: 22px;
+        }
+
+        .project-grid,
+        .metrics {
+          grid-template-columns: 1fr;
+        }
+
+        .project p {
+          min-height: 0;
+        }
+
+        .footer-inner {
+          align-items: flex-start;
+          flex-direction: column;
+          justify-content: center;
+          padding: 24px 0;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+
+        *,
+        *::before,
+        *::after {
+          transition: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="hero">
+      <nav class="nav" aria-label="Primary navigation">
+        <a class="brand" href="https://github.com/ML4Sustain" aria-label="ML4Sustain on GitHub">
+          <img
+            class="brand-mark"
+            src="https://raw.githubusercontent.com/ML4Sustain/rs-paper-hub/main/asset/logo.png"
+            alt=""
+          />
+          <span>ML4Sustain</span>
+        </a>
+        <div class="nav-links">
+          <a href="#projects" data-i18n="nav.projects">项目</a>
+          <a href="#focus" data-i18n="nav.focus">方向</a>
+          <a href="https://github.com/ML4Sustain">GitHub</a>
+          <div class="language-toggle" aria-label="Language switcher">
+            <button class="lang-button" type="button" data-lang="zh" aria-pressed="true">中</button>
+            <button class="lang-button" type="button" data-lang="en" aria-pressed="false">EN</button>
+          </div>
+        </div>
+      </nav>
+
+      <div class="hero-inner">
+        <p class="eyebrow" data-i18n="hero.eyebrow">机器学习 × 遥感 × 可持续发展目标</p>
+        <h1 data-i18n="hero.title">连接遥感智能与真实世界影响的开放社区</h1>
+        <p class="hero-copy" data-i18n="hero.copy">
+          ML4Sustain 汇聚模型、数据集、论文、演示系统和开源项目，推动遥感技术服务可持续发展目标
+        </p>
+        <div class="actions" aria-label="Organization links">
+          <a class="button primary" href="https://github.com/ML4Sustain">
+            <span class="button-logo github" aria-hidden="true">
+              <svg viewBox="0 0 24 24" role="img">
+                <path
+                  fill="currentColor"
+                  d="M12 .5a12 12 0 0 0-3.8 23.39c.6.11.82-.26.82-.58v-2.24c-3.34.73-4.04-1.42-4.04-1.42-.55-1.39-1.34-1.76-1.34-1.76-1.09-.75.08-.74.08-.74 1.2.09 1.84 1.24 1.84 1.24 1.08 1.83 2.82 1.3 3.51.99.11-.78.42-1.3.76-1.6-2.66-.31-5.46-1.34-5.46-5.94 0-1.31.47-2.38 1.24-3.22-.12-.31-.54-1.54.12-3.18 0 0 1.01-.32 3.3 1.23A11.4 11.4 0 0 1 12 6.27c1.02 0 2.05.14 3.01.4 2.29-1.55 3.3-1.23 3.3-1.23.66 1.64.24 2.87.12 3.18.77.84 1.23 1.91 1.23 3.22 0 4.61-2.8 5.63-5.48 5.93.43.38.82 1.1.82 2.23v3.31c0 .32.22.7.83.58A12 12 0 0 0 12 .5Z"
+                />
+              </svg>
+            </span>
+            <span data-i18n="button.github">GitHub</span>
+          </a>
+          <a class="button" href="https://huggingface.co/ML4Sustain">
+            <span class="button-logo hf" aria-hidden="true">
+              <img
+                src="https://huggingface.co/datasets/huggingface/brand-assets/resolve/main/hf-logo.svg"
+                alt=""
+              />
+            </span>
+            Hugging Face
+          </a>
+          <a class="button" href="https://modelscope.cn/organization/ML4Sustain">
+            <span class="button-logo modelscope" aria-hidden="true">
+              <img
+                src="https://img.alicdn.com/imgextra/i4/O1CN01fvt4it25rEZU4Gjso_!!6000000007579-2-tps-128-128.png"
+                alt=""
+              />
+            </span>
+            ModelScope
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="section" id="projects" aria-labelledby="projects-title">
+        <div class="section-heading">
+          <h2 id="projects-title" data-i18n="projects.title">社区项目</h2>
+          <p data-i18n="projects.copy">
+            展示社区围绕论文组织、开放词表遥感检测、生成式地球观测和模型发布维护的项目
+          </p>
+        </div>
+
+        <div class="project-grid">
+          <article class="project">
+            <div class="project-media">
+              <img
+                src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=900&q=80"
+                alt="Satellite view of Earth for RS Paper Hub"
+                loading="lazy"
+              />
+            </div>
+            <div class="project-body">
+              <div class="project-kicker">
+                <span data-i18n="project.rs.kicker">论文集合</span>
+                <span class="index">01</span>
+              </div>
+              <h3>RS Paper Hub</h3>
+              <p data-i18n="project.rs.copy">遥感论文社：为研究者追踪遥感领域进展而建设的专属论文集合</p>
+              <div class="project-links">
+                <a class="tag website" href="https://rspaper.top/" data-i18n="tag.website">网站</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="project">
+            <div class="project-media">
+              <img
+                src="https://opengraph.githubassets.com/ml4sustain-beluga/VoyagerXvoyagerx/beluga-seeker"
+                alt="GitHub preview for Beluga Seeker"
+                loading="lazy"
+              />
+            </div>
+            <div class="project-body">
+              <div class="project-kicker">
+                <span data-i18n="project.beluga.kicker">模型发布</span>
+                <span class="index">02</span>
+              </div>
+              <h3>Beluga Seeker</h3>
+              <p data-i18n="project.beluga.copy">Beluga Seeker 的模型与源码仓库，可通过 ML4Sustain 模型渠道访问</p>
+              <div class="project-links">
+                <a class="tag modelscope" href="https://www.modelscope.cn/models/ML4Sustain/beluga-seeker">ModelScope</a>
+                <a class="tag hf" href="https://huggingface.co/ML4Sustain/beluga-seeker">Hugging Face</a>
+                <a class="tag github" href="https://github.com/VoyagerXvoyagerx/beluga-seeker">GitHub</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="project">
+            <div class="project-media">
+              <img
+                src="https://opengraph.githubassets.com/ml4sustain-lae-dino/jaychempan/LAE-DINO"
+                alt="GitHub preview for LAE-DINO"
+                loading="lazy"
+              />
+            </div>
+            <div class="project-body">
+              <div class="project-kicker">
+                <span data-i18n="project.lae.kicker">开放词表检测</span>
+                <span class="index">03</span>
+              </div>
+              <h3>LAE-DINO</h3>
+              <p data-i18n="project.lae.copy">Locate Anything on Earth 官方代码，面向遥感场景推进开放词表目标检测</p>
+              <div class="project-links">
+                <a class="tag modelscope" href="https://modelscope.cn/studios/ML4Sustain/LAE-DINO" data-i18n="tag.demo">演示</a>
+                <a class="tag hf" href="https://huggingface.co/ML4Sustain/LAE-DINO" data-i18n="tag.model">模型</a>
+                <a class="tag hf" href="https://huggingface.co/datasets/ML4Sustain/LAE-1M" data-i18n="tag.dataset">数据集</a>
+                <a class="tag paper" href="https://arxiv.org/abs/2408.09110" data-i18n="tag.paper">论文</a>
+                <a class="tag github" href="https://github.com/jaychempan/LAE-DINO">GitHub</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="project">
+            <div class="project-media">
+              <img
+                src="https://opengraph.githubassets.com/ml4sustain-earthsynth/jaychempan/EarthSynth"
+                alt="GitHub preview for EarthSynth"
+                loading="lazy"
+              />
+            </div>
+            <div class="project-body">
+              <div class="project-kicker">
+                <span data-i18n="project.earth.kicker">生成式地球观测</span>
+                <span class="index">04</span>
+              </div>
+              <h3>EarthSynth</h3>
+              <p data-i18n="project.earth.copy">基于扩散模型的生成式基础模型，用于高信息量地球观测合成与下游遥感研究</p>
+              <div class="project-links">
+                <a class="tag modelscope" href="https://www.modelscope.cn/studios/ML4Sustain/EarthSynth" data-i18n="tag.demo">演示</a>
+                <a class="tag hf" href="https://huggingface.co/jaychempan/EarthSynth" data-i18n="tag.model">模型</a>
+                <a class="tag hf" href="https://huggingface.co/datasets/jaychempan/EarthSynth-180K" data-i18n="tag.dataset">数据集</a>
+                <a class="tag paper" href="https://arxiv.org/abs/2505.12108" data-i18n="tag.paper">论文</a>
+                <a class="tag github" href="https://github.com/jaychempan/EarthSynth">GitHub</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="band" id="focus" aria-labelledby="focus-title">
+        <div class="section">
+          <div>
+            <p class="eyebrow" data-i18n="focus.eyebrow">社区方向</p>
+            <h2 id="focus-title" data-i18n="focus.title">让遥感研究走向真实世界影响</h2>
+          </div>
+          <div class="metrics">
+            <div class="metric">
+              <strong data-i18n="metric.models.title">模型</strong>
+              <span data-i18n="metric.models.copy">基础模型、检测器、演示应用与模型权重</span>
+            </div>
+            <div class="metric">
+              <strong data-i18n="metric.data.title">数据</strong>
+              <span data-i18n="metric.data.copy">面向遥感任务与可持续发展场景的数据集与基准</span>
+            </div>
+            <div class="metric">
+              <strong data-i18n="metric.papers.title">论文</strong>
+              <span data-i18n="metric.papers.copy">帮助社区跟踪遥感、机器学习与 SDGs 交叉研究</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-inner">
+        <span data-i18n="footer.copy">ML4Sustain - 连接机器学习、遥感与真实世界影响</span>
+        <div class="footer-links">
+          <a href="https://github.com/ML4Sustain">GitHub</a>
+          <a href="https://huggingface.co/ML4Sustain">Hugging Face</a>
+          <a href="https://modelscope.cn/organization/ML4Sustain">ModelScope</a>
+        </div>
+      </div>
+    </footer>
+    <script>
+      const copy = {
+        zh: {
+          title: "ML4Sustain - 连接机器学习、遥感与可持续发展目标",
+          description: "ML4Sustain 是连接机器学习、遥感与真实世界影响的开放社区，支持可持续发展目标",
+          "nav.projects": "项目",
+          "nav.focus": "方向",
+          "hero.eyebrow": "机器学习 × 遥感 × 可持续发展目标",
+          "hero.title": "连接遥感智能与真实世界影响的开放社区",
+          "hero.copy": "ML4Sustain 汇聚模型、数据集、论文、演示系统和开源项目，推动遥感技术服务可持续发展目标",
+          "button.github": "GitHub",
+          "projects.title": "社区项目",
+          "projects.copy": "展示社区围绕论文组织、开放词表遥感检测、生成式地球观测和模型发布维护的项目",
+          "project.rs.kicker": "论文社区",
+          "project.rs.copy": "遥感论文社：为研究者追踪遥感领域进展而建设的论文社区",
+          "project.beluga.kicker": "模型发布",
+          "project.beluga.copy": "Beluga Seeker 的模型与源码仓库，可通过 ML4Sustain 模型渠道访问",
+          "project.lae.kicker": "开放词表检测",
+          "project.lae.copy": "Locate Anything on Earth 官方代码，面向遥感场景推进开放词表目标检测",
+          "project.earth.kicker": "生成式地球观测",
+          "project.earth.copy": "基于扩散模型的生成式基础模型，用于高信息量地球观测合成与下游遥感研究",
+          "tag.website": "网站",
+          "tag.demo": "演示",
+          "tag.model": "模型",
+          "tag.dataset": "数据集",
+          "tag.paper": "论文",
+          "focus.eyebrow": "社区方向",
+          "focus.title": "让遥感研究走向真实世界影响",
+          "metric.models.title": "模型",
+          "metric.models.copy": "基础模型、检测器、演示应用与模型权重",
+          "metric.data.title": "数据",
+          "metric.data.copy": "面向遥感任务与可持续发展场景的数据集与基准",
+          "metric.papers.title": "论文",
+          "metric.papers.copy": "帮助社区跟踪遥感、机器学习与 SDGs 交叉研究",
+          "footer.copy": "ML4Sustain - 连接机器学习、遥感与真实世界影响"
+        },
+        en: {
+          title: "ML4Sustain - Remote Sensing for Sustainable Development",
+          description: "ML4Sustain is a community bridging machine learning, remote sensing, and real-world impact to support the sustainable development goals",
+          "nav.projects": "Projects",
+          "nav.focus": "Focus",
+          "hero.eyebrow": "Machine learning x remote sensing x SDGs",
+          "hero.title": "A community bridging remote sensing intelligence and real-world impact",
+          "hero.copy": "ML4Sustain connects models, datasets, papers, demos, and open-source projects to support the sustainable development goals",
+          "button.github": "GitHub",
+          "projects.title": "Featured projects",
+          "projects.copy": "A compact view of ML4Sustain projects spanning paper discovery, foundation detectors, generative Earth observation, and released model assets",
+          "project.rs.kicker": "Paper collection",
+          "project.rs.copy": "A dedicated remote-sensing paper community for researchers tracking the field",
+          "project.beluga.kicker": "Model release",
+          "project.beluga.copy": "Model and source repository for Beluga Seeker, available through ML4Sustain model channels",
+          "project.lae.kicker": "Open-vocabulary detection",
+          "project.lae.copy": "Official code for Locate Anything on Earth, advancing open-vocabulary object detection for remote sensing",
+          "project.earth.kicker": "Generative Earth observation",
+          "project.earth.copy": "Diffusion-based generative foundation model for informative Earth observation synthesis and downstream RSI research",
+          "tag.website": "Website",
+          "tag.demo": "Demo",
+          "tag.model": "Model",
+          "tag.dataset": "Dataset",
+          "tag.paper": "Paper",
+          "focus.eyebrow": "Research focus",
+          "focus.title": "An open community for Earth intelligence",
+          "metric.models.title": "Models",
+          "metric.models.copy": "Foundation models, detectors, demos, and checkpoints",
+          "metric.data.title": "Data",
+          "metric.data.copy": "Large-scale datasets and benchmarks for remote sensing tasks",
+          "metric.papers.title": "Papers",
+          "metric.papers.copy": "Curated content for following sustainable AI research",
+          "footer.copy": "ML4Sustain - Remote sensing for sustainable development"
+        }
+      };
+
+      const setLanguage = (lang) => {
+        const selected = copy[lang] ? lang : "zh";
+        document.documentElement.lang = selected === "zh" ? "zh-CN" : "en";
+        document.title = copy[selected].title;
+        document
+          .querySelector('meta[name="description"]')
+          .setAttribute("content", copy[selected].description);
+        document.querySelectorAll("[data-i18n]").forEach((node) => {
+          const key = node.getAttribute("data-i18n");
+          node.textContent = copy[selected][key] || node.textContent;
+        });
+        document.querySelectorAll(".lang-button").forEach((button) => {
+          button.setAttribute("aria-pressed", String(button.dataset.lang === selected));
+        });
+      };
+
+      document.querySelectorAll(".lang-button").forEach((button) => {
+        button.addEventListener("click", () => {
+          setLanguage(button.dataset.lang);
+          const nextUrl = new URL(window.location.href);
+          nextUrl.searchParams.set("lang", button.dataset.lang);
+          window.history.replaceState({}, "", nextUrl);
+        });
+      });
+
+      const initialLang = new URLSearchParams(window.location.search).get("lang");
+      setLanguage(initialLang === "en" ? "en" : "zh");
+    </script>
+  </body>
+</html>
