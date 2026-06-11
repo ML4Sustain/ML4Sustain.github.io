@@ -179,14 +179,12 @@
       .hero-inner {
         position: relative;
         z-index: 1;
-        display: grid;
-        grid-template-columns: minmax(0, 1fr) minmax(360px, 0.58fr);
-        gap: 72px;
-        align-items: center;
+        display: block;
         padding: 78px 0 92px;
       }
 
       .hero-copy-block {
+        width: min(760px, 100%);
         min-width: 0;
       }
 
@@ -224,87 +222,6 @@
         color: rgba(255, 255, 255, 0.84);
         font-size: clamp(17px, 1.65vw, 22px);
         line-height: 1.9;
-      }
-
-      .hero-panel {
-        position: relative;
-        width: 100%;
-        min-width: 0;
-        min-height: 420px;
-        display: grid;
-        align-content: end;
-        gap: 16px;
-        padding: 14px;
-        border: 1px solid rgba(255, 255, 255, 0.22);
-        border-radius: 8px;
-        background: rgba(9, 32, 27, 0.56);
-        box-shadow: 0 28px 90px rgba(0, 0, 0, 0.22);
-        backdrop-filter: blur(16px);
-        overflow: hidden;
-      }
-
-      .hero-panel::before {
-        content: "";
-        display: block;
-        min-height: 290px;
-        border-radius: 6px;
-        background:
-          linear-gradient(180deg, rgba(12, 29, 25, 0.08), rgba(12, 29, 25, 0.48)),
-          url("https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=900&q=80")
-            center / cover;
-      }
-
-      .panel-title {
-        margin: 0;
-        color: rgba(255, 255, 255, 0.68);
-        font-family: var(--font-mono);
-        font-size: 12px;
-        font-weight: 700;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-      }
-
-      .panel-copy {
-        margin: 0;
-        max-width: 32ch;
-        color: rgba(255, 255, 255, 0.82);
-        font-size: 15px;
-        line-height: 1.85;
-      }
-
-      .panel-row {
-        display: grid;
-        grid-template-columns: 34px 1fr;
-        gap: 14px;
-        align-items: center;
-        padding: 11px 0;
-        border-top: 1px solid rgba(255, 255, 255, 0.15);
-        background: transparent;
-      }
-
-      .panel-row strong {
-        display: block;
-        margin-bottom: 2px;
-        color: #fff;
-        font-size: 14px;
-      }
-
-      .panel-row span {
-        color: rgba(255, 255, 255, 0.68);
-        font-size: 12px;
-      }
-
-      .panel-index {
-        display: grid;
-        place-items: center;
-        width: 34px;
-        height: 34px;
-        border-radius: 8px;
-        color: #0f382e;
-        background: #dff7ec;
-        font-family: var(--font-mono);
-        font-size: 12px;
-        font-weight: 800;
       }
 
       .actions,
@@ -430,19 +347,47 @@
         line-height: 1.95;
       }
 
+      .project-track {
+        display: grid;
+        grid-auto-columns: minmax(290px, 360px);
+        grid-auto-flow: column;
+        gap: 16px;
+        margin-right: calc((100vw - min(1180px, 100vw - 40px)) / -2);
+        overflow-x: auto;
+        overscroll-behavior-inline: contain;
+        padding: 0 calc((100vw - min(1180px, 100vw - 40px)) / 2) 16px 0;
+        scroll-padding-inline: 20px;
+        scroll-snap-type: inline mandatory;
+        scrollbar-color: rgba(18, 56, 47, 0.36) transparent;
+      }
+
+      .project-track::-webkit-scrollbar {
+        height: 10px;
+      }
+
+      .project-track::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      .project-track::-webkit-scrollbar-thumb {
+        border: 3px solid var(--paper);
+        border-radius: 999px;
+        background: rgba(18, 56, 47, 0.36);
+      }
+
+      .project-loading {
+        color: var(--muted);
+        font-size: 14px;
+      }
+
       .project:hover {
         border-color: #b8c9bd;
         box-shadow: 0 16px 42px rgba(20, 48, 39, 0.09);
         transform: translateY(-2px);
       }
 
-      .project-grid {
-        display: grid;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-        gap: 16px;
-      }
-
       .project {
+        position: relative;
         min-height: 100%;
         display: flex;
         flex-direction: column;
@@ -456,6 +401,21 @@
           transform 180ms ease,
           box-shadow 180ms ease,
           border-color 180ms ease;
+        scroll-snap-align: start;
+      }
+
+      .project-card-link {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        border-radius: inherit;
+      }
+
+      .project-media,
+      .project-body {
+        position: relative;
+        z-index: 2;
+        pointer-events: none;
       }
 
       .project-media {
@@ -523,6 +483,8 @@
       }
 
       .tag {
+        position: relative;
+        z-index: 3;
         display: inline-flex;
         align-items: center;
         min-height: 32px;
@@ -532,6 +494,7 @@
         background: var(--field);
         font-size: 12px;
         font-weight: 760;
+        pointer-events: auto;
       }
 
       .tag.github {
@@ -574,6 +537,10 @@
         align-items: start;
       }
 
+      .band h2 {
+        margin-bottom: 32px;
+      }
+
       .band p {
         color: rgba(255, 255, 255, 0.72);
       }
@@ -609,6 +576,23 @@
       .metric span {
         color: rgba(255, 255, 255, 0.72);
         font-size: 14px;
+      }
+
+      .community-note {
+        margin-top: 26px;
+        color: rgba(255, 255, 255, 0.74);
+        font-size: 15px;
+        line-height: 1.8;
+      }
+
+      .community-note a {
+        color: #dff7ec;
+        font-weight: 760;
+      }
+
+      .community-note a:hover {
+        text-decoration: underline;
+        text-underline-offset: 4px;
       }
 
       .workflows {
@@ -657,8 +641,8 @@
       }
 
       @media (max-width: 1100px) {
-        .project-grid {
-          grid-template-columns: repeat(2, minmax(0, 1fr));
+        .project-track {
+          grid-auto-columns: minmax(280px, 44vw);
         }
       }
 
@@ -668,13 +652,34 @@
       }
 
       .footer-inner {
-        min-height: 94px;
+        min-height: 116px;
         display: flex;
         align-items: center;
         justify-content: space-between;
         gap: 20px;
         color: var(--muted);
         font-size: 14px;
+      }
+
+      .footer-meta {
+        display: grid;
+        gap: 6px;
+      }
+
+      .footer-copy {
+        color: var(--ink);
+        font-weight: 700;
+      }
+
+      .footer-legal,
+      .footer-views {
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .footer-views strong {
+        color: var(--forest);
+        font-feature-settings: "tnum";
       }
 
       .footer-links {
@@ -721,19 +726,7 @@
         }
 
         .hero-inner {
-          grid-template-columns: 1fr;
-          gap: 34px;
           padding: 58px 0 64px;
-        }
-
-        .hero-panel {
-          align-self: auto;
-          min-height: auto;
-        }
-
-        .hero-panel::before {
-          width: 100%;
-          min-height: 180px;
         }
 
         h1 {
@@ -773,10 +766,15 @@
           gap: 22px;
         }
 
-        .project-grid,
         .metrics,
         .workflow-grid {
           grid-template-columns: 1fr;
+        }
+
+        .project-track {
+          grid-auto-columns: minmax(278px, 82vw);
+          margin-right: -24px;
+          padding-right: 24px;
         }
 
         .project {
@@ -893,12 +891,6 @@
             </a>
           </div>
         </div>
-        <div class="hero-panel" aria-label="ML4Sustain research stack">
-          <div>
-            <div class="panel-title" data-i18n="panel.title">社区协作</div>
-            <p class="panel-copy" data-i18n="panel.copy">围绕遥感论文、开放模型和可持续发展应用，沉淀可复用的社区项目。</p>
-          </div>
-        </div>
       </div>
     </header>
 
@@ -906,106 +898,10 @@
       <section class="section soft" id="projects" aria-labelledby="projects-title">
         <div class="section-heading">
           <h2 id="projects-title" data-i18n="projects.title">社区项目</h2>
-          <p data-i18n="projects.copy">
-            这些项目由社区持续维护，覆盖论文整理、模型发布、数据集与可运行演示。每个项目都尽量保留清晰的入口和可复现材料。
-          </p>
         </div>
 
-        <div class="project-grid">
-          <article class="project">
-            <div class="project-media">
-              <img
-                src="assets/rs-paper-hub.png"
-                alt="RS Paper Hub website screenshot"
-                loading="lazy"
-              />
-            </div>
-            <div class="project-body">
-              <div class="project-kicker">
-                <span data-i18n="project.rs.kicker">论文平台</span>
-                <span class="index">01</span>
-              </div>
-              <h3>RS Paper Hub</h3>
-              <p data-i18n="project.rs.copy">面向遥感研究者的论文平台，持续整理研究方向、方法、任务和应用场景。</p>
-              <div class="project-links">
-                <a class="tag website" href="https://rspaper.top/" data-i18n="tag.website">网站</a>
-                <a class="tag github" href="https://github.com/ML4Sustain/rs-paper-hub">GitHub</a>
-              </div>
-            </div>
-          </article>
-
-          <article class="project">
-            <div class="project-media">
-              <img
-                src="https://opengraph.githubassets.com/ml4sustain-beluga/VoyagerXvoyagerx/beluga-seeker"
-                alt="GitHub preview for Beluga Seeker"
-                loading="lazy"
-              />
-            </div>
-            <div class="project-body">
-              <div class="project-kicker">
-                <span data-i18n="project.beluga.kicker">模型仓库</span>
-                <span class="index">02</span>
-              </div>
-              <h3>Beluga Seeker</h3>
-              <p data-i18n="project.beluga.copy">面向模型复现与使用的发布仓库，维护权重、源码和更新信息。</p>
-              <div class="project-links">
-                <a class="tag modelscope" href="https://www.modelscope.cn/models/ML4Sustain/beluga-seeker">ModelScope</a>
-                <a class="tag hf" href="https://huggingface.co/ML4Sustain/beluga-seeker">Hugging Face</a>
-                <a class="tag github" href="https://github.com/VoyagerXvoyagerx/beluga-seeker">GitHub</a>
-              </div>
-            </div>
-          </article>
-
-          <article class="project">
-            <div class="project-media">
-              <img
-                src="https://opengraph.githubassets.com/ml4sustain-lae-dino/jaychempan/LAE-DINO"
-                alt="GitHub preview for LAE-DINO"
-                loading="lazy"
-              />
-            </div>
-            <div class="project-body">
-              <div class="project-kicker">
-                <span data-i18n="project.lae.kicker">目标检测</span>
-                <span class="index">03</span>
-              </div>
-              <h3>LAE-DINO</h3>
-              <p data-i18n="project.lae.copy">面向遥感图像的开放词表目标检测项目，支持更灵活的地物识别与定位。</p>
-              <div class="project-links">
-                <a class="tag modelscope" href="https://modelscope.cn/studios/ML4Sustain/LAE-DINO" data-i18n="tag.demo">演示</a>
-                <a class="tag hf" href="https://huggingface.co/ML4Sustain/LAE-DINO" data-i18n="tag.model">模型</a>
-                <a class="tag hf" href="https://huggingface.co/datasets/ML4Sustain/LAE-1M" data-i18n="tag.dataset">数据集</a>
-                <a class="tag paper" href="https://arxiv.org/abs/2408.09110" data-i18n="tag.paper">论文</a>
-                <a class="tag github" href="https://github.com/jaychempan/LAE-DINO">GitHub</a>
-              </div>
-            </div>
-          </article>
-
-          <article class="project">
-            <div class="project-media">
-              <img
-                src="https://opengraph.githubassets.com/ml4sustain-earthsynth/jaychempan/EarthSynth"
-                alt="GitHub preview for EarthSynth"
-                loading="lazy"
-              />
-            </div>
-            <div class="project-body">
-              <div class="project-kicker">
-                <span data-i18n="project.earth.kicker">生成式遥感</span>
-                <span class="index">04</span>
-              </div>
-              <h3>EarthSynth</h3>
-              <p data-i18n="project.earth.copy">生成式地球观测模型，用于遥感样本合成、数据扩展与下游实验。</p>
-              <div class="project-links">
-                <a class="tag modelscope" href="https://www.modelscope.cn/studios/ML4Sustain/EarthSynth" data-i18n="tag.demo">演示</a>
-                <a class="tag hf" href="https://huggingface.co/jaychempan/EarthSynth" data-i18n="tag.model">模型</a>
-                <a class="tag hf" href="https://huggingface.co/datasets/jaychempan/EarthSynth-180K" data-i18n="tag.dataset">数据集</a>
-                <a class="tag paper" href="https://arxiv.org/abs/2505.12108" data-i18n="tag.paper">论文</a>
-                <a class="tag github" href="https://github.com/jaychempan/EarthSynth">GitHub</a>
-              </div>
-            </div>
-          </article>
+        <div class="project-track" id="project-track" aria-label="Community projects">
+          <span class="project-loading" data-i18n="projects.loading">项目加载中...</span>
         </div>
       </section>
 
@@ -1016,6 +912,10 @@
             <h2 id="focus-title" data-i18n="focus.title">社区关注什么</h2>
             <p data-i18n="focus.copy">
               我们关注遥感智能如何被更多研究者使用、复现和改进，并逐步服务环境、城市、农业和灾害等真实问题。
+            </p>
+            <p class="community-note">
+              <span data-i18n="focus.join">想加入社区或一起维护项目，可以联系</span>
+              <a href="mailto:jiancheng.pan.plus@gmail.com">jiancheng.pan.plus@gmail.com</a>
             </p>
           </div>
           <div class="metrics">
@@ -1038,7 +938,14 @@
 
     <footer>
       <div class="footer-inner">
-        <span data-i18n="footer.copy">ML4Sustain - 连接机器学习、遥感与真实世界影响</span>
+        <div class="footer-meta">
+          <span class="footer-copy" data-i18n="footer.copy">ML4Sustain - 连接机器学习、遥感与真实世界影响</span>
+          <span class="footer-legal">© <span id="copyright-year">2026</span> ML4Sustain. <span data-i18n="footer.rights">保留所有权利。</span></span>
+          <span class="footer-views">
+            <span data-i18n="footer.views">访问量</span>
+            <strong id="busuanzi_value_site_pv">--</strong>
+          </span>
+        </div>
         <div class="footer-links">
           <a href="https://github.com/ML4Sustain">GitHub</a>
           <a href="https://huggingface.co/ML4Sustain">Hugging Face</a>
@@ -1046,6 +953,11 @@
         </div>
       </div>
     </footer>
+    <script
+      async
+      src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"
+      onerror="document.getElementById('busuanzi_value_site_pv').textContent='--'"
+    ></script>
     <script>
       const copy = {
         zh: {
@@ -1057,8 +969,6 @@
           "hero.title": "开放遥感智能\n服务可持续发展研究",
           "hero.copy": "ML4Sustain 是一个面向遥感智能与可持续发展的开放社区。我们一起维护论文、模型、数据和演示项目，让研究材料更容易被发现、复现和继续推进。",
           "button.github": "GitHub",
-          "panel.title": "社区协作",
-          "panel.copy": "围绕遥感论文、开放模型和可持续发展应用，沉淀可复用的社区项目。",
           "panel.papers.title": "论文与方向",
           "panel.papers.copy": "从 RS Paper Hub 跟踪遥感研究进展",
           "panel.models.title": "模型与代码",
@@ -1066,15 +976,8 @@
           "panel.data.title": "数据与基准",
           "panel.data.copy": "沉淀面向实际任务的数据集与评测",
           "projects.title": "社区项目",
-          "projects.copy": "这些项目由社区持续维护，覆盖论文整理、模型发布、数据集与可运行演示。每个项目都尽量保留清晰的入口和可复现材料。",
-          "project.rs.kicker": "论文平台",
-          "project.rs.copy": "面向遥感研究者的论文平台，持续整理研究方向、方法、任务和应用场景。",
-          "project.beluga.kicker": "模型仓库",
-          "project.beluga.copy": "面向模型复现与使用的发布仓库，维护权重、源码和更新信息。",
-          "project.lae.kicker": "目标检测",
-          "project.lae.copy": "面向遥感图像的开放词表目标检测项目，支持更灵活的地物识别与定位。",
-          "project.earth.kicker": "生成式遥感",
-          "project.earth.copy": "生成式地球观测模型，用于遥感样本合成、数据扩展与下游实验。",
+          "projects.loading": "项目加载中...",
+          "projects.load_error": "项目加载失败，请稍后重试。",
           "tag.website": "网站",
           "tag.demo": "演示",
           "tag.model": "模型",
@@ -1091,13 +994,16 @@
           "focus.eyebrow": "Community Focus",
           "focus.title": "社区关注什么",
           "focus.copy": "我们关注遥感智能如何被更多研究者使用、复现和改进，并逐步服务环境、城市、农业和灾害等真实问题。",
+          "focus.join": "想加入社区或一起维护项目，可以联系",
           "metric.models.title": "模型",
           "metric.models.copy": "开放权重、检测器、生成模型与可运行演示系统",
           "metric.data.title": "数据",
           "metric.data.copy": "面向真实遥感任务的数据集、基准与实验材料",
           "metric.papers.title": "论文",
           "metric.papers.copy": "围绕遥感、机器学习和 SDGs 持续整理论文与方向",
-          "footer.copy": "ML4Sustain - 连接机器学习、遥感与真实世界影响"
+          "footer.copy": "ML4Sustain - 连接机器学习、遥感与真实世界影响",
+          "footer.rights": "保留所有权利。",
+          "footer.views": "访问量"
         },
         en: {
           title: "ML4Sustain - Open Remote Sensing Intelligence for Sustainability",
@@ -1108,8 +1014,6 @@
           "hero.title": "Open remote sensing intelligence for sustainability research",
           "hero.copy": "ML4Sustain is an open community for remote sensing intelligence and sustainability. Together we maintain papers, models, datasets, and demos so research material is easier to find, reproduce, and build on.",
           "button.github": "GitHub",
-          "panel.title": "Community work",
-          "panel.copy": "Reusable community projects around remote-sensing papers, open models, and sustainability applications.",
           "panel.papers.title": "Papers and directions",
           "panel.papers.copy": "Follow remote sensing progress through RS Paper Hub",
           "panel.models.title": "Models and code",
@@ -1117,15 +1021,8 @@
           "panel.data.title": "Data and benchmarks",
           "panel.data.copy": "Maintain datasets and evaluation material for real tasks",
           "projects.title": "Community projects",
-          "projects.copy": "These projects are maintained by the community, covering paper curation, model releases, datasets, and runnable demos. Each one keeps clear entry points and reproducible material.",
-          "project.rs.kicker": "Paper platform",
-          "project.rs.copy": "A paper platform for remote-sensing researchers, organizing research directions, methods, tasks, and application scenarios.",
-          "project.beluga.kicker": "Model repository",
-          "project.beluga.copy": "A repository for model reproduction and use, maintaining weights, source code, and updates.",
-          "project.lae.kicker": "Object detection",
-          "project.lae.copy": "Open-vocabulary object detection for remote-sensing imagery, supporting flexible recognition and localization.",
-          "project.earth.kicker": "Generative remote sensing",
-          "project.earth.copy": "A generative Earth-observation model for sample synthesis, data expansion, and downstream experiments.",
+          "projects.loading": "Loading projects...",
+          "projects.load_error": "Projects failed to load. Please try again later.",
           "tag.website": "Website",
           "tag.demo": "Demo",
           "tag.model": "Model",
@@ -1142,18 +1039,93 @@
           "focus.eyebrow": "Community Focus",
           "focus.title": "What the community focuses on",
           "focus.copy": "We focus on how remote sensing intelligence can be used, reproduced, and improved by more researchers, then applied to environmental, urban, agricultural, and disaster-related problems.",
+          "focus.join": "To join the community or help maintain a project, contact",
           "metric.models.title": "Models",
           "metric.models.copy": "Open weights, detectors, generative models, and runnable demo systems",
           "metric.data.title": "Data",
           "metric.data.copy": "Datasets, benchmarks, and experiment material for real remote-sensing tasks",
           "metric.papers.title": "Papers",
           "metric.papers.copy": "Curated papers and directions across remote sensing, machine learning, and SDGs",
-          "footer.copy": "ML4Sustain - Remote sensing for sustainable development"
+          "footer.copy": "ML4Sustain - Remote sensing for sustainable development",
+          "footer.rights": "All rights reserved.",
+          "footer.views": "Views"
         }
+      };
+
+      let projects = [];
+      let currentLang = "zh";
+
+      const localize = (value, lang) => {
+        if (value && typeof value === "object") {
+          return value[lang] || value.zh || value.en || "";
+        }
+        return value || "";
+      };
+
+      const renderProjects = (lang) => {
+        const track = document.getElementById("project-track");
+        if (!track) return;
+        if (!projects.length) {
+          track.textContent = copy[lang]["projects.loading"];
+          return;
+        }
+
+        track.replaceChildren();
+        projects.forEach((project) => {
+          const article = document.createElement("article");
+          article.className = "project";
+
+          const cardLink = document.createElement("a");
+          cardLink.className = "project-card-link";
+          cardLink.href = project.primaryUrl;
+          cardLink.setAttribute("aria-label", `${project.title} ${localize(project.kicker, lang)}`.trim());
+          article.append(cardLink);
+
+          const media = document.createElement("div");
+          media.className = "project-media";
+          const image = document.createElement("img");
+          image.src = project.image;
+          image.alt = project.imageAlt || `${project.title} preview`;
+          image.loading = "lazy";
+          media.append(image);
+
+          const body = document.createElement("div");
+          body.className = "project-body";
+
+          const kicker = document.createElement("div");
+          kicker.className = "project-kicker";
+          const kickerText = document.createElement("span");
+          kickerText.textContent = localize(project.kicker, lang);
+          const index = document.createElement("span");
+          index.className = "index";
+          index.textContent = project.index;
+          kicker.append(kickerText, index);
+
+          const title = document.createElement("h3");
+          title.textContent = project.title;
+
+          const description = document.createElement("p");
+          description.textContent = localize(project.description, lang);
+
+          const links = document.createElement("div");
+          links.className = "project-links";
+          (project.links || []).forEach((link) => {
+            const anchor = document.createElement("a");
+            anchor.className = `tag ${link.style || ""}`.trim();
+            anchor.href = link.url;
+            anchor.textContent = localize(link.label, lang);
+            links.append(anchor);
+          });
+
+          body.append(kicker, title, description, links);
+          article.append(media, body);
+          track.append(article);
+        });
       };
 
       const setLanguage = (lang) => {
         const selected = copy[lang] ? lang : "zh";
+        currentLang = selected;
         document.documentElement.lang = selected === "zh" ? "zh-CN" : "en";
         document.title = copy[selected].title;
         document
@@ -1166,6 +1138,7 @@
         document.querySelectorAll(".lang-button").forEach((button) => {
           button.setAttribute("aria-pressed", String(button.dataset.lang === selected));
         });
+        renderProjects(selected);
       };
 
       document.querySelectorAll(".lang-button").forEach((button) => {
@@ -1178,7 +1151,22 @@
       });
 
       const initialLang = new URLSearchParams(window.location.search).get("lang");
+      document.getElementById("copyright-year").textContent = new Date().getFullYear();
       setLanguage(initialLang === "en" ? "en" : "zh");
+
+      fetch("data/projects.json")
+        .then((response) => {
+          if (!response.ok) throw new Error(`Unable to load projects: ${response.status}`);
+          return response.json();
+        })
+        .then((data) => {
+          projects = Array.isArray(data) ? data : [];
+          renderProjects(currentLang);
+        })
+        .catch(() => {
+          const track = document.getElementById("project-track");
+          if (track) track.textContent = copy[currentLang]["projects.load_error"];
+        });
     </script>
   </body>
 </html>
