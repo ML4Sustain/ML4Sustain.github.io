@@ -141,5 +141,52 @@
         "style": "github"
       }
     ]
+  },
+  {
+    "id": "earth-embedding-explorer",
+    "title": "EarthEmbeddingExplorer",
+    "index": "04",
+    "kicker": {
+      "zh": "跨模态检索",
+      "en": "Cross-modal retrieval"
+    },
+    "description": {
+      "zh": "面向全球卫星影像的交互式检索应用，支持文本、图像和地理坐标搜索",
+      "en": "An interactive retrieval app for global satellite imagery, supporting text, image, and geographic coordinate search."
+    },
+    "image": "https://raw.githubusercontent.com/OpenGeoScope/EarthEmbeddingExplorer/main/images/Text_Search.jpg",
+    "imageAlt": "EarthEmbeddingExplorer text search screenshot",
+    "primaryUrl": "https://modelscope.cn/studios/Major-TOM/EarthEmbeddingExplorer/",
+    "links": [
+      {
+        "label": {
+          "zh": "演示",
+          "en": "Demo"
+        },
+        "url": "https://modelscope.cn/studios/Major-TOM/EarthEmbeddingExplorer/",
+        "style": "modelscope"
+      },
+      {
+        "label": {
+          "zh": "数据集",
+          "en": "Dataset"
+        },
+        "url": "https://modelscope.cn/collections/Major-TOM/Core-S2L2A-249k",
+        "style": "modelscope"
+      },
+      {
+        "label": {
+          "zh": "论文",
+          "en": "Paper"
+        },
+        "url": "https://arxiv.org/abs/2603.29441",
+        "style": "paper"
+      },
+      {
+        "label": "GitHub",
+        "url": "https://github.com/OpenGeoScope/EarthEmbeddingExplorer",
+        "style": "github"
+      }
+    ]
   }
 ]
