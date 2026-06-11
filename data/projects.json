@@ -1,45 +1,14 @@
 [
   {
-    "id": "rs-paper-hub",
-    "title": "RS Paper Hub",
-    "index": "01",
-    "kicker": {
-      "zh": "论文平台",
-      "en": "Paper platform"
-    },
-    "description": {
-      "zh": "面向遥感研究者的论文平台，持续整理研究方向、方法、任务和应用场景。",
-      "en": "A paper platform for remote-sensing researchers, organizing research directions, methods, tasks, and application scenarios."
-    },
-    "image": "assets/rs-paper-hub.png",
-    "imageAlt": "RS Paper Hub website screenshot",
-    "primaryUrl": "https://rspaper.top/",
-    "links": [
-      {
-        "label": {
-          "zh": "网站",
-          "en": "Website"
-        },
-        "url": "https://rspaper.top/",
-        "style": "website"
-      },
-      {
-        "label": "GitHub",
-        "url": "https://github.com/ML4Sustain/rs-paper-hub",
-        "style": "github"
-      }
-    ]
-  },
-  {
     "id": "beluga-seeker",
     "title": "Beluga Seeker",
-    "index": "02",
+    "index": "01",
     "kicker": {
       "zh": "模型仓库",
       "en": "Model repository"
     },
     "description": {
-      "zh": "面向模型复现与使用的发布仓库，维护权重、源码和更新信息。",
+      "zh": "面向模型复现与使用的发布仓库，维护权重、源码和更新信息",
       "en": "A repository for model reproduction and use, maintaining weights, source code, and updates."
     },
     "image": "https://opengraph.githubassets.com/ml4sustain-beluga/VoyagerXvoyagerx/beluga-seeker",
@@ -66,13 +35,13 @@
   {
     "id": "lae-dino",
     "title": "LAE-DINO",
-    "index": "03",
+    "index": "02",
     "kicker": {
       "zh": "目标检测",
       "en": "Object detection"
     },
     "description": {
-      "zh": "面向遥感图像的开放词表目标检测项目，支持更灵活的地物识别与定位。",
+      "zh": "面向遥感图像的开放词表目标检测项目，支持更灵活的地物识别与定位",
       "en": "Open-vocabulary object detection for remote-sensing imagery, supporting flexible recognition and localization."
     },
     "image": "https://opengraph.githubassets.com/ml4sustain-lae-dino/jaychempan/LAE-DINO",
@@ -121,13 +90,13 @@
   {
     "id": "earthsynth",
     "title": "EarthSynth",
-    "index": "04",
+    "index": "03",
     "kicker": {
       "zh": "生成式遥感",
       "en": "Generative remote sensing"
     },
     "description": {
-      "zh": "生成式地球观测模型，用于遥感样本合成、数据扩展与下游实验。",
+      "zh": "生成式地球观测模型，用于遥感样本合成、数据扩展与下游实验",
       "en": "A generative Earth-observation model for sample synthesis, data expansion, and downstream experiments."
     },
     "image": "https://opengraph.githubassets.com/ml4sustain-earthsynth/jaychempan/EarthSynth",

@@ -112,7 +112,7 @@
         min-height: 78px;
         display: flex;
         align-items: center;
-        justify-content: space-between;
+        justify-content: flex-start;
         gap: 24px;
         position: relative;
         z-index: 2;
@@ -139,6 +139,7 @@
         display: flex;
         align-items: center;
         gap: 22px;
+        margin-left: auto;
         color: rgba(255, 255, 255, 0.84);
         font-size: 14px;
         font-weight: 650;
@@ -146,6 +147,36 @@
 
       .nav-links a:hover {
         color: #fff;
+      }
+
+      .nav-tools {
+        display: inline-flex;
+        align-items: center;
+        gap: 14px;
+        margin-left: 0;
+      }
+
+      .menu-toggle {
+        display: none;
+        width: 42px;
+        height: 38px;
+        place-items: center;
+        border: 1px solid rgba(255, 255, 255, 0.24);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.12);
+        cursor: pointer;
+      }
+
+      .menu-toggle span {
+        display: block;
+        width: 18px;
+        height: 2px;
+        margin: 3px 0;
+        border-radius: 999px;
+        background: #fff;
+        transition:
+          transform 180ms ease,
+          opacity 180ms ease;
       }
 
       .language-toggle {
@@ -347,37 +378,258 @@
         line-height: 1.95;
       }
 
+      .project-carousel {
+        position: relative;
+      }
+
+      .project-carousel::before,
+      .project-carousel::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        z-index: 3;
+        width: 64px;
+        height: 100%;
+        pointer-events: none;
+      }
+
+      .project-carousel::before {
+        left: 0;
+        background: linear-gradient(90deg, var(--paper), rgba(247, 249, 246, 0));
+      }
+
+      .project-carousel::after {
+        right: 0;
+        background: linear-gradient(270deg, var(--paper), rgba(247, 249, 246, 0));
+      }
+
       .project-track {
         display: grid;
-        grid-auto-columns: minmax(290px, 360px);
+        grid-auto-columns: minmax(330px, 390px);
         grid-auto-flow: column;
         gap: 16px;
-        margin-right: calc((100vw - min(1180px, 100vw - 40px)) / -2);
         overflow-x: auto;
         overscroll-behavior-inline: contain;
-        padding: 0 calc((100vw - min(1180px, 100vw - 40px)) / 2) 16px 0;
-        scroll-padding-inline: 20px;
-        scroll-snap-type: inline mandatory;
-        scrollbar-color: rgba(18, 56, 47, 0.36) transparent;
+        padding: 0;
+        scroll-padding-inline: 0;
+        scrollbar-width: none;
       }
 
       .project-track::-webkit-scrollbar {
-        height: 10px;
-      }
-
-      .project-track::-webkit-scrollbar-track {
-        background: transparent;
-      }
-
-      .project-track::-webkit-scrollbar-thumb {
-        border: 3px solid var(--paper);
-        border-radius: 999px;
-        background: rgba(18, 56, 47, 0.36);
+        display: none;
       }
 
       .project-loading {
         color: var(--muted);
         font-size: 14px;
+      }
+
+      .project-arrow {
+        position: absolute;
+        top: 50%;
+        z-index: 4;
+        display: grid;
+        place-items: center;
+        width: 44px;
+        height: 44px;
+        border: 1px solid rgba(18, 56, 47, 0.14);
+        border-radius: 999px;
+        color: var(--forest);
+        background: rgba(255, 255, 255, 0.72);
+        box-shadow: 0 14px 34px rgba(18, 56, 47, 0.16);
+        backdrop-filter: blur(14px);
+        cursor: pointer;
+        transform: translateY(-50%);
+        transition:
+          background 160ms ease,
+          border-color 160ms ease,
+          box-shadow 160ms ease,
+          transform 160ms ease;
+      }
+
+      .project-arrow::before {
+        content: "";
+        width: 11px;
+        height: 11px;
+        border-top: 2px solid currentColor;
+        border-left: 2px solid currentColor;
+      }
+
+      .project-arrow:hover {
+        border-color: rgba(18, 56, 47, 0.26);
+        background: rgba(255, 255, 255, 0.92);
+        box-shadow: 0 18px 42px rgba(18, 56, 47, 0.2);
+      }
+
+      .project-arrow:focus-visible {
+        outline: 3px solid rgba(107, 211, 158, 0.72);
+        outline-offset: 3px;
+      }
+
+      .project-arrow.prev {
+        left: -22px;
+      }
+
+      .project-arrow.prev::before {
+        transform: translateX(2px) rotate(-45deg);
+      }
+
+      .project-arrow.next {
+        right: -22px;
+      }
+
+      .project-arrow.next::before {
+        transform: translateX(-2px) rotate(135deg);
+      }
+
+      .project-arrow.prev:hover {
+        transform: translate(-2px, -50%);
+      }
+
+      .project-arrow.next:hover {
+        transform: translate(2px, -50%);
+      }
+
+      .papers-section {
+        background: transparent;
+      }
+
+      .paper-board {
+        display: grid;
+        grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
+        gap: 18px;
+        align-items: stretch;
+      }
+
+      .paper-panel {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #fff;
+      }
+
+      .paper-panel.primary {
+        padding: 22px;
+      }
+
+      .paper-panel.aside {
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+        padding: 22px;
+        background: var(--field);
+      }
+
+      .paper-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 18px;
+        color: var(--muted);
+        font-family: var(--font-mono);
+        font-size: 12px;
+        font-weight: 700;
+      }
+
+      .paper-list {
+        display: grid;
+        gap: 12px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .paper-item {
+        padding-top: 12px;
+        border-top: 1px solid var(--line);
+      }
+
+      .paper-item:first-child {
+        padding-top: 0;
+        border-top: 0;
+      }
+
+      .paper-item a {
+        color: var(--ink);
+        font-size: 16px;
+        font-weight: 760;
+        line-height: 1.45;
+      }
+
+      .paper-item a:hover {
+        color: var(--forest);
+      }
+
+      .paper-authors {
+        margin: 7px 0 0;
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.6;
+      }
+
+      .paper-stat {
+        display: grid;
+        gap: 8px;
+        margin-bottom: 20px;
+      }
+
+      .paper-stat strong {
+        color: var(--forest);
+        font-size: clamp(42px, 5vw, 70px);
+        line-height: 1;
+        font-weight: 760;
+      }
+
+      .paper-stat span {
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .paper-breakdown {
+        display: grid;
+        gap: 8px;
+        margin: 0 0 24px;
+        padding: 0;
+        list-style: none;
+      }
+
+      .paper-breakdown li {
+        display: flex;
+      }
+
+      .paper-date-button {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        gap: 18px;
+        padding: 0 0 8px;
+        border-bottom: 1px solid var(--line);
+        border-top: 0;
+        border-right: 0;
+        border-left: 0;
+        color: var(--muted);
+        background: transparent;
+        font: inherit;
+        font-size: 13px;
+        cursor: pointer;
+      }
+
+      .paper-date-button strong {
+        color: var(--ink);
+        font-feature-settings: "tnum";
+      }
+
+      .paper-date-button:hover,
+      .paper-date-button.is-active {
+        color: var(--forest);
+      }
+
+      .paper-date-button.is-active strong {
+        color: var(--forest);
+      }
+
+      .paper-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
       }
 
       .project:hover {
@@ -431,7 +683,7 @@
       .project-media img {
         width: 100%;
         height: 100%;
-        object-fit: cover;
+        object-fit: contain;
         filter: saturate(0.96) contrast(1.02);
         transition: transform 220ms ease;
       }
@@ -642,7 +894,7 @@
 
       @media (max-width: 1100px) {
         .project-track {
-          grid-auto-columns: minmax(280px, 44vw);
+          grid-auto-columns: minmax(320px, 48vw);
         }
       }
 
@@ -653,9 +905,9 @@
 
       .footer-inner {
         min-height: 116px;
-        display: flex;
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
         align-items: center;
-        justify-content: space-between;
         gap: 20px;
         color: var(--muted);
         font-size: 14px;
@@ -666,15 +918,15 @@
         gap: 6px;
       }
 
-      .footer-copy {
-        color: var(--ink);
-        font-weight: 700;
-      }
-
       .footer-legal,
       .footer-views {
         color: var(--muted);
         font-size: 13px;
+      }
+
+      .footer-views {
+        justify-self: center;
+        text-align: center;
       }
 
       .footer-views strong {
@@ -686,6 +938,7 @@
         display: flex;
         flex-wrap: wrap;
         gap: 14px;
+        justify-self: end;
       }
 
       .footer-links a:hover {
@@ -709,16 +962,93 @@
         }
 
         .nav {
-          align-items: flex-start;
-          flex-direction: column;
-          padding: 18px 0 0;
+          align-items: center;
+          display: flex;
+          gap: 12px;
+          padding: 16px 0 0;
+        }
+
+        .brand {
+          min-width: 0;
+        }
+
+        .nav-tools {
+          position: fixed;
+          top: 16px;
+          right: 24px;
+          z-index: 10;
+          width: 118px;
+          height: 38px;
+          margin-left: auto;
+          flex: none;
+          gap: 0;
+        }
+
+        .nav-tools .language-toggle {
+          position: absolute;
+          top: 0;
+          right: 48px;
+          padding: 2px;
+        }
+
+        .nav-tools .lang-button {
+          min-width: 30px;
+          min-height: 27px;
+        }
+
+        .menu-toggle {
+          position: absolute;
+          top: 0;
+          right: 0;
+          display: grid;
         }
 
         .nav-links {
-          width: 100%;
-          flex-wrap: wrap;
-          overflow-x: visible;
-          padding-bottom: 4px;
+          position: fixed;
+          top: 64px;
+          right: 24px;
+          z-index: 9;
+          width: min(210px, calc(100vw - 48px));
+          display: grid;
+          gap: 10px;
+          padding: 10px;
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          border-radius: 10px;
+          background: rgba(9, 32, 27, 0.78);
+          box-shadow: 0 18px 50px rgba(0, 0, 0, 0.22);
+          backdrop-filter: blur(18px);
+          overflow: hidden;
+          opacity: 0;
+          pointer-events: none;
+          transform: translateY(-6px);
+          transition:
+            opacity 180ms ease,
+            transform 180ms ease;
+        }
+
+        .nav.is-open .nav-links {
+          opacity: 1;
+          pointer-events: auto;
+          transform: translateY(0);
+        }
+
+        .nav.is-open .menu-toggle span:nth-child(1) {
+          transform: translateY(8px) rotate(45deg);
+        }
+
+        .nav.is-open .menu-toggle span:nth-child(2) {
+          opacity: 0;
+        }
+
+        .nav.is-open .menu-toggle span:nth-child(3) {
+          transform: translateY(-8px) rotate(-45deg);
+        }
+
+        .nav-links a {
+          padding: 9px 10px;
+          border-radius: 8px;
+          color: rgba(255, 255, 255, 0.86);
+          background: rgba(255, 255, 255, 0.08);
         }
 
         .language-toggle {
@@ -761,6 +1091,7 @@
         }
 
         .section-heading,
+        .paper-board,
         .band .section {
           grid-template-columns: 1fr;
           gap: 22px;
@@ -773,8 +1104,26 @@
 
         .project-track {
           grid-auto-columns: minmax(278px, 82vw);
-          margin-right: -24px;
-          padding-right: 24px;
+          padding: 0 42px;
+          scroll-padding-inline: 42px;
+        }
+
+        .project-carousel::before,
+        .project-carousel::after {
+          width: 46px;
+        }
+
+        .project-arrow {
+          width: 38px;
+          height: 38px;
+        }
+
+        .project-arrow.prev {
+          left: 4px;
+        }
+
+        .project-arrow.next {
+          right: 4px;
         }
 
         .project {
@@ -810,9 +1159,14 @@
 
         .footer-inner {
           align-items: flex-start;
-          flex-direction: column;
-          justify-content: center;
+          grid-template-columns: 1fr;
           padding: 24px 0;
+        }
+
+        .footer-views,
+        .footer-links {
+          justify-self: start;
+          text-align: left;
         }
       }
 
@@ -840,10 +1194,18 @@
           />
           <span>ML4Sustain</span>
         </a>
-        <div class="nav-links">
+        <div class="nav-links" id="nav-links">
+          <a href="#papers" data-i18n="nav.papers">论文</a>
           <a href="#projects" data-i18n="nav.projects">项目</a>
           <a href="#focus" data-i18n="nav.focus">社区</a>
           <a href="https://github.com/ML4Sustain">GitHub</a>
+        </div>
+        <div class="nav-tools">
+          <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
           <div class="language-toggle" aria-label="Language switcher">
             <button class="lang-button" type="button" data-lang="zh" aria-pressed="true">中</button>
             <button class="lang-button" type="button" data-lang="en" aria-pressed="false">EN</button>
@@ -857,7 +1219,7 @@
           <h1 data-i18n="hero.title">开放遥感智能
 服务可持续发展研究</h1>
           <p class="hero-copy" data-i18n="hero.copy">
-            ML4Sustain 是一个面向遥感智能与可持续发展的开放社区。我们一起维护论文、模型、数据和演示项目，让研究材料更容易被发现、复现和继续推进。
+            ML4Sustain 是一个面向遥感智能与可持续发展的开放社区 我们一起维护论文、模型、数据和演示项目，让研究材料更容易被发现、复现和继续推进
           </p>
           <div class="actions" aria-label="Organization links">
             <a class="button primary" href="https://github.com/ML4Sustain">
@@ -895,13 +1257,48 @@
     </header>
 
     <main>
+      <section class="section papers-section" id="papers" aria-labelledby="papers-title">
+        <div class="section-heading">
+          <h2 id="papers-title" data-i18n="papers.title">论文更新</h2>
+        </div>
+
+        <div class="paper-board">
+          <div class="paper-panel primary">
+            <div class="paper-meta">
+              <span data-i18n="papers.daily">最新一天</span>
+              <span id="paper-latest-date">--</span>
+              <span><strong id="paper-daily-count">--</strong> <span data-i18n="papers.items">篇</span></span>
+            </div>
+            <ul class="paper-list" id="daily-paper-list">
+              <li class="paper-item" data-i18n="papers.loading">论文加载中...</li>
+            </ul>
+          </div>
+
+          <aside class="paper-panel aside" aria-label="Weekly paper summary">
+            <div class="paper-stat">
+              <strong id="paper-week-count">--</strong>
+              <span data-i18n="papers.weekly">近 7 天累计论文</span>
+            </div>
+            <ul class="paper-breakdown" id="paper-breakdown"></ul>
+            <div class="paper-actions">
+              <a class="tag website" href="https://rspaper.top/" data-i18n="papers.open">进入 RS Paper Hub</a>
+              <a class="tag github" href="https://github.com/ML4Sustain/rs-paper-hub">GitHub</a>
+            </div>
+          </aside>
+        </div>
+      </section>
+
       <section class="section soft" id="projects" aria-labelledby="projects-title">
         <div class="section-heading">
           <h2 id="projects-title" data-i18n="projects.title">社区项目</h2>
         </div>
 
-        <div class="project-track" id="project-track" aria-label="Community projects">
-          <span class="project-loading" data-i18n="projects.loading">项目加载中...</span>
+        <div class="project-carousel" id="project-carousel">
+          <button class="project-arrow prev" type="button" aria-label="Previous projects"></button>
+          <div class="project-track" id="project-track" aria-label="Community projects">
+            <span class="project-loading" data-i18n="projects.loading">项目加载中...</span>
+          </div>
+          <button class="project-arrow next" type="button" aria-label="Next projects"></button>
         </div>
       </section>
 
@@ -911,7 +1308,7 @@
             <p class="eyebrow" data-i18n="focus.eyebrow">Community Focus</p>
             <h2 id="focus-title" data-i18n="focus.title">社区关注什么</h2>
             <p data-i18n="focus.copy">
-              我们关注遥感智能如何被更多研究者使用、复现和改进，并逐步服务环境、城市、农业和灾害等真实问题。
+              我们关注遥感智能如何被更多研究者使用、复现和改进，并逐步服务环境、城市、农业和灾害等真实问题
             </p>
             <p class="community-note">
               <span data-i18n="focus.join">想加入社区或一起维护项目，可以联系</span>
@@ -939,13 +1336,14 @@
     <footer>
       <div class="footer-inner">
         <div class="footer-meta">
-          <span class="footer-copy" data-i18n="footer.copy">ML4Sustain - 连接机器学习、遥感与真实世界影响</span>
-          <span class="footer-legal">© <span id="copyright-year">2026</span> ML4Sustain. <span data-i18n="footer.rights">保留所有权利。</span></span>
-          <span class="footer-views">
-            <span data-i18n="footer.views">访问量</span>
-            <strong id="busuanzi_value_site_pv">--</strong>
-          </span>
+          <span class="footer-legal">© <span id="copyright-year">2026</span> ML4Sustain. <span data-i18n="footer.rights">保留所有权利</span></span>
         </div>
+        <span class="footer-views">
+          <span data-i18n="footer.pv">访问量</span>
+          <strong id="busuanzi_value_site_pv">--</strong>
+          <span data-i18n="footer.uv">访客</span>
+          <strong id="busuanzi_value_site_uv">--</strong>
+        </span>
         <div class="footer-links">
           <a href="https://github.com/ML4Sustain">GitHub</a>
           <a href="https://huggingface.co/ML4Sustain">Hugging Face</a>
@@ -956,18 +1354,19 @@
     <script
       async
       src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"
-      onerror="document.getElementById('busuanzi_value_site_pv').textContent='--'"
+      onerror="document.querySelectorAll('[id^=busuanzi_value_]').forEach((node) => { node.textContent = '--'; })"
     ></script>
     <script>
       const copy = {
         zh: {
           title: "ML4Sustain - 开放遥感智能与可持续发展研究",
           description: "ML4Sustain 聚合遥感论文、数据、模型与开源工具，支持可持续发展相关研究与应用",
+          "nav.papers": "论文",
           "nav.projects": "项目",
           "nav.focus": "社区",
           "hero.eyebrow": "Open Remote Sensing Intelligence",
           "hero.title": "开放遥感智能\n服务可持续发展研究",
-          "hero.copy": "ML4Sustain 是一个面向遥感智能与可持续发展的开放社区。我们一起维护论文、模型、数据和演示项目，让研究材料更容易被发现、复现和继续推进。",
+          "hero.copy": "ML4Sustain 是一个面向遥感智能与可持续发展的开放社区 我们一起维护论文、模型、数据和演示项目，让研究材料更容易被发现、复现和继续推进",
           "button.github": "GitHub",
           "panel.papers.title": "论文与方向",
           "panel.papers.copy": "从 RS Paper Hub 跟踪遥感研究进展",
@@ -975,25 +1374,32 @@
           "panel.models.copy": "整理可复现的权重、源码与实验入口",
           "panel.data.title": "数据与基准",
           "panel.data.copy": "沉淀面向实际任务的数据集与评测",
+          "papers.title": "论文更新",
+          "papers.daily": "当前日期",
+          "papers.items": "篇",
+          "papers.weekly": "近 7 天累计论文",
+          "papers.open": "进入 RS Paper Hub",
+          "papers.loading": "论文加载中...",
+          "papers.load_error": "论文更新加载失败，请稍后重试",
           "projects.title": "社区项目",
           "projects.loading": "项目加载中...",
-          "projects.load_error": "项目加载失败，请稍后重试。",
+          "projects.load_error": "项目加载失败，请稍后重试",
           "tag.website": "网站",
           "tag.demo": "演示",
           "tag.model": "模型",
           "tag.dataset": "数据集",
           "tag.paper": "论文",
           "workflows.title": "面向复现与应用的资源组织",
-          "workflows.copy": "ML4Sustain 关注研究链路中的关键材料：论文线索、代码实现、模型权重、数据集、评测基准与演示系统。每一类资源都应当更容易被发现、验证和继续使用。",
+          "workflows.copy": "ML4Sustain 关注研究链路中的关键材料：论文线索、代码实现、模型权重、数据集、评测基准与演示系统 每一类资源都应当更容易被发现、验证和继续使用",
           "workflow.discover.title": "跟踪进展",
-          "workflow.discover.copy": "围绕遥感、机器学习与可持续发展交叉方向整理论文与项目，帮助研究者快速建立背景。",
+          "workflow.discover.copy": "围绕遥感、机器学习与可持续发展交叉方向整理论文与项目，帮助研究者快速建立背景",
           "workflow.reuse.title": "复现实验",
-          "workflow.reuse.copy": "优先呈现源码、模型权重、数据集和运行入口，让论文结论更容易被验证和延展。",
+          "workflow.reuse.copy": "优先呈现源码、模型权重、数据集和运行入口，让论文结论更容易被验证和延展",
           "workflow.connect.title": "服务场景",
-          "workflow.connect.copy": "关注遥感智能在生态、城市、农业、灾害响应和资源管理等可持续发展任务中的落地价值。",
+          "workflow.connect.copy": "关注遥感智能在生态、城市、农业、灾害响应和资源管理等可持续发展任务中的落地价值",
           "focus.eyebrow": "Community Focus",
           "focus.title": "社区关注什么",
-          "focus.copy": "我们关注遥感智能如何被更多研究者使用、复现和改进，并逐步服务环境、城市、农业和灾害等真实问题。",
+          "focus.copy": "我们关注遥感智能如何被更多研究者使用、复现和改进，并逐步服务环境、城市、农业和灾害等真实问题",
           "focus.join": "想加入社区或一起维护项目，可以联系",
           "metric.models.title": "模型",
           "metric.models.copy": "开放权重、检测器、生成模型与可运行演示系统",
@@ -1001,13 +1407,14 @@
           "metric.data.copy": "面向真实遥感任务的数据集、基准与实验材料",
           "metric.papers.title": "论文",
           "metric.papers.copy": "围绕遥感、机器学习和 SDGs 持续整理论文与方向",
-          "footer.copy": "ML4Sustain - 连接机器学习、遥感与真实世界影响",
-          "footer.rights": "保留所有权利。",
-          "footer.views": "访问量"
+          "footer.rights": "保留所有权利",
+          "footer.pv": "访问量",
+          "footer.uv": "访客"
         },
         en: {
           title: "ML4Sustain - Open Remote Sensing Intelligence for Sustainability",
           description: "ML4Sustain indexes remote-sensing papers, datasets, models, and open-source tools for sustainability research",
+          "nav.papers": "Papers",
           "nav.projects": "Projects",
           "nav.focus": "Community",
           "hero.eyebrow": "Open Remote Sensing Intelligence",
@@ -1020,6 +1427,13 @@
           "panel.models.copy": "Collect reproducible weights, source code, and run entries",
           "panel.data.title": "Data and benchmarks",
           "panel.data.copy": "Maintain datasets and evaluation material for real tasks",
+          "papers.title": "Paper updates",
+          "papers.daily": "Latest day",
+          "papers.items": "papers",
+          "papers.weekly": "Papers added in the last 7 days",
+          "papers.open": "Open RS Paper Hub",
+          "papers.loading": "Loading papers...",
+          "papers.load_error": "Paper updates failed to load. Please try again later.",
           "projects.title": "Community projects",
           "projects.loading": "Loading projects...",
           "projects.load_error": "Projects failed to load. Please try again later.",
@@ -1046,20 +1460,118 @@
           "metric.data.copy": "Datasets, benchmarks, and experiment material for real remote-sensing tasks",
           "metric.papers.title": "Papers",
           "metric.papers.copy": "Curated papers and directions across remote sensing, machine learning, and SDGs",
-          "footer.copy": "ML4Sustain - Remote sensing for sustainable development",
           "footer.rights": "All rights reserved.",
-          "footer.views": "Views"
+          "footer.pv": "Views",
+          "footer.uv": "Visitors"
         }
       };
 
+      const paperFeedUrl =
+        "https://raw.githubusercontent.com/ML4Sustain/rs-paper-hub/main/output/feed.xml";
       let projects = [];
+      let paperUpdates = [];
+      let selectedPaperDate = "";
       let currentLang = "zh";
+      let projectAutoScrollFrame = 0;
+      let projectAutoScrollPaused = false;
 
       const localize = (value, lang) => {
         if (value && typeof value === "object") {
           return value[lang] || value.zh || value.en || "";
         }
         return value || "";
+      };
+
+      const formatDate = (dateText, lang) => {
+        if (!dateText) return "--";
+        const date = new Date(`${dateText}T00:00:00Z`);
+        return new Intl.DateTimeFormat(lang === "zh" ? "zh-CN" : "en", {
+          month: "short",
+          day: "numeric"
+        }).format(date);
+      };
+
+      const trimText = (text, limit) => {
+        if (!text || text.length <= limit) return text || "";
+        return `${text.slice(0, limit).trim()}...`;
+      };
+
+      const renderPaperUpdates = (lang) => {
+        const list = document.getElementById("daily-paper-list");
+        const breakdown = document.getElementById("paper-breakdown");
+        const latestDateNode = document.getElementById("paper-latest-date");
+        const dailyCountNode = document.getElementById("paper-daily-count");
+        const weekCountNode = document.getElementById("paper-week-count");
+        if (!list || !breakdown || !latestDateNode || !dailyCountNode || !weekCountNode) return;
+
+        if (!paperUpdates.length) {
+          list.replaceChildren();
+          const item = document.createElement("li");
+          item.className = "paper-item";
+          item.textContent = copy[lang]["papers.loading"];
+          list.append(item);
+          latestDateNode.textContent = "--";
+          dailyCountNode.textContent = "--";
+          weekCountNode.textContent = "--";
+          breakdown.replaceChildren();
+          return;
+        }
+
+        const latestDate = paperUpdates[0].date;
+        if (!selectedPaperDate || !paperUpdates.some((paper) => paper.date === selectedPaperDate)) {
+          selectedPaperDate = latestDate;
+        }
+        const dailyPapers = paperUpdates.filter((paper) => paper.date === selectedPaperDate);
+        const grouped = paperUpdates.reduce((acc, paper) => {
+          acc[paper.date] = (acc[paper.date] || 0) + 1;
+          return acc;
+        }, {});
+
+        latestDateNode.textContent = formatDate(selectedPaperDate, lang);
+        dailyCountNode.textContent = dailyPapers.length;
+        weekCountNode.textContent = paperUpdates.length;
+
+        list.replaceChildren();
+        dailyPapers.slice(0, 5).forEach((paper) => {
+          const item = document.createElement("li");
+          item.className = "paper-item";
+
+          const link = document.createElement("a");
+          link.href = paper.url;
+          link.textContent = paper.title;
+
+          const authors = document.createElement("p");
+          authors.className = "paper-authors";
+          authors.textContent = trimText(paper.authors.join(", "), 120);
+
+          item.append(link, authors);
+          list.append(item);
+        });
+
+        breakdown.replaceChildren();
+        Object.entries(grouped)
+          .sort(([a], [b]) => b.localeCompare(a))
+          .forEach(([date, count]) => {
+            const item = document.createElement("li");
+            const button = document.createElement("button");
+            button.className = "paper-date-button";
+            button.type = "button";
+            button.setAttribute("aria-pressed", String(date === selectedPaperDate));
+            if (date === selectedPaperDate) button.classList.add("is-active");
+
+            const label = document.createElement("span");
+            label.textContent = formatDate(date, lang);
+            const value = document.createElement("strong");
+            value.textContent = count;
+            button.append(label, value);
+            button.addEventListener("click", () => {
+              selectedPaperDate = date;
+              renderPaperUpdates(currentLang);
+            });
+
+            item.append(button);
+            breakdown.append(item);
+          });
       };
 
       const renderProjects = (lang) => {
@@ -1121,6 +1633,31 @@
           article.append(media, body);
           track.append(article);
         });
+        startProjectAutoScroll();
+      };
+
+      const startProjectAutoScroll = () => {
+        const track = document.getElementById("project-track");
+        if (!track || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+        cancelAnimationFrame(projectAutoScrollFrame);
+
+        let previousTime = 0;
+        const tick = (time) => {
+          if (!previousTime) previousTime = time;
+          const delta = time - previousTime;
+          previousTime = time;
+
+          if (!projectAutoScrollPaused && track.scrollWidth > track.clientWidth + 2) {
+            track.scrollLeft += delta * 0.018;
+            if (track.scrollLeft >= track.scrollWidth - track.clientWidth - 1) {
+              track.scrollLeft = 0;
+            }
+          }
+
+          projectAutoScrollFrame = requestAnimationFrame(tick);
+        };
+
+        projectAutoScrollFrame = requestAnimationFrame(tick);
       };
 
       const setLanguage = (lang) => {
@@ -1139,7 +1676,44 @@
           button.setAttribute("aria-pressed", String(button.dataset.lang === selected));
         });
         renderProjects(selected);
+        renderPaperUpdates(selected);
       };
+
+      const nav = document.querySelector(".nav");
+      const menuToggle = document.querySelector(".menu-toggle");
+      menuToggle?.addEventListener("click", () => {
+        const isOpen = nav.classList.toggle("is-open");
+        menuToggle.setAttribute("aria-expanded", String(isOpen));
+      });
+
+      document.querySelectorAll(".nav-links a").forEach((link) => {
+        link.addEventListener("click", () => {
+          nav.classList.remove("is-open");
+          menuToggle?.setAttribute("aria-expanded", "false");
+        });
+      });
+
+      const projectCarousel = document.getElementById("project-carousel");
+      projectCarousel?.addEventListener("mouseenter", () => {
+        projectAutoScrollPaused = true;
+      });
+      projectCarousel?.addEventListener("mouseleave", () => {
+        projectAutoScrollPaused = false;
+      });
+      projectCarousel?.addEventListener("focusin", () => {
+        projectAutoScrollPaused = true;
+      });
+      projectCarousel?.addEventListener("focusout", () => {
+        projectAutoScrollPaused = false;
+      });
+      document.querySelector(".project-arrow.prev")?.addEventListener("click", () => {
+        projectAutoScrollPaused = true;
+        document.getElementById("project-track")?.scrollBy({ left: -360, behavior: "smooth" });
+      });
+      document.querySelector(".project-arrow.next")?.addEventListener("click", () => {
+        projectAutoScrollPaused = true;
+        document.getElementById("project-track")?.scrollBy({ left: 360, behavior: "smooth" });
+      });
 
       document.querySelectorAll(".lang-button").forEach((button) => {
         button.addEventListener("click", () => {
@@ -1166,6 +1740,46 @@
         .catch(() => {
           const track = document.getElementById("project-track");
           if (track) track.textContent = copy[currentLang]["projects.load_error"];
+        });
+
+      fetch(paperFeedUrl)
+        .then((response) => {
+          if (!response.ok) throw new Error(`Unable to load papers: ${response.status}`);
+          return response.text();
+        })
+        .then((text) => {
+          const xml = new DOMParser().parseFromString(text, "application/xml");
+          paperUpdates = Array.from(xml.getElementsByTagName("entry"))
+            .map((entry) => {
+              const title = entry.getElementsByTagName("title")[0]?.textContent?.trim() || "";
+              const published = entry.getElementsByTagName("published")[0]?.textContent || "";
+              const url =
+                entry.querySelector('link[rel="alternate"]')?.getAttribute("href") ||
+                entry.getElementsByTagName("id")[0]?.textContent ||
+                "https://rspaper.top/";
+              const authors = Array.from(entry.getElementsByTagName("author"))
+                .map((author) => author.getElementsByTagName("name")[0]?.textContent?.trim())
+                .filter(Boolean);
+              return {
+                title,
+                url,
+                authors,
+                date: published.slice(0, 10)
+              };
+            })
+            .filter((paper) => paper.title && paper.date)
+            .sort((a, b) => b.date.localeCompare(a.date));
+          renderPaperUpdates(currentLang);
+        })
+        .catch(() => {
+          const list = document.getElementById("daily-paper-list");
+          if (list) {
+            list.replaceChildren();
+            const item = document.createElement("li");
+            item.className = "paper-item";
+            item.textContent = copy[currentLang]["papers.load_error"];
+            list.append(item);
+          }
         });
     </script>
   </body>
